@@ -14,7 +14,11 @@
 /* Default port if not specified via -p */
 char *port = "1982";
 
+#if __OpenBSD__
 void usage(void);
+#elif __linux
+void usage(char *progname);
+#endif
 
 int
 main(int argc, char *argv[])
@@ -28,12 +32,20 @@ main(int argc, char *argv[])
                         port = optarg;
                         break;
                 case '?':
-                        usage();
+#if __OpenBSD__			
+			usage();
+#elif __linux__
+			usage(argv[0]);
+#endif
                         return 1;
                 }	
         if ((optind == 1) && (argv[1] == NULL))
         {
+#if __OpenBSD__
                 usage();
+#elif __linux__
+		usage(argv[0]);
+#endif
                 return 1;
         }
 	else if (optind == 1)
@@ -112,9 +124,16 @@ main(int argc, char *argv[])
 	SSL_CTX_free(ctx);
 	return 0;
 }
-
+#if __OpenBSD__
 void
 usage()
 {
         printf("Usage:  %s [-p port] ip/fqdn\n", getprogname());
 }
+#elif __linux__
+void
+usage(char *progname)
+{
+	printf("Usage:  %s [-p port] ip/fqdn\n", progname);
+}
+#endif

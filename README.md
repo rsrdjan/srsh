@@ -30,4 +30,4 @@ Connects to `ip/fqdn` on `port`. If `port` is omitted, 1982 is the default one. 
 
 ## Notes
 
-Developed and tested on [OpenBSD](https://www.openbsd.org). Enjoy.
+Tested on [OpenBSD](https://www.openbsd.org) and Linux. Enjoy.

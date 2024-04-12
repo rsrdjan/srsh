@@ -21,7 +21,11 @@ char *port = "1982";
 pthread_t th_id;
 int th_running = 0;
 
+#if __OpenBSD__
 void usage(void);
+#elif __linux__
+void usage(char*);
+#endif
 void *shell(void*);
 
 int
@@ -46,12 +50,20 @@ main(int argc, char *argv[])
 			port = optarg;
 			break;
 		case '?':
+#if __OpenBSD__
 			usage();
+#elif __linux__
+			usage(argv[0]);
+#endif
 			exit(1);
 		}
 	if ((optind < 5) || !cflag || !kflag)
 	{
+#if __OpenBSD__
 		usage();
+#elif __linux__
+		usage(argv[0]);
+#endif
 		exit(1);
 	}
 	argc -= optind;
@@ -148,12 +160,19 @@ main(int argc, char *argv[])
 	close(sockfd);
 	return 0;
 }
+#if __OpenBSD__
 void
 usage()
 {
-        printf("Usage:\n");
-        printf("  %s -c certfile -k keyfile [-p port]\n", getprogname());
+	printf("Usage: %s -c certfile -k keyfile [-p port]\n", getprogname());
 }
+#elif __linux__
+void
+usage(char *progname)
+{
+	printf("Usage: %s -c certfile -k keyfile [-p port]\n", progname);
+}
+#endif
 void 
 *shell(void *connection)
 {
