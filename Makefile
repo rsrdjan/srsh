@@ -3,6 +3,8 @@
 CC =cc
 LIBS=-lssl -lcrypto -lpthread
 
+all: cert server agent clean
+
 server: srsh-server.c
 	$(CC) -o srsh-server srsh-server.c $(LIBS)
 agent: srsh-agent.c
