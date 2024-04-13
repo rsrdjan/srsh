@@ -7,10 +7,14 @@ Simple TLS-enabled reverse shell framework (agent and server)
 ```
 git clone https://github.com/rsrdjan/srsh.git
 cd srsh
-make cert && make server && make agent && make clean
+make all
 ```
+You can `make` individual components or `all`. Individual components are:
 
-`make cert` invocates `openssl` command-line tool to generate self-signed x509 certificate and private key (both needed for `srsh-server`) in interactive mode.
+`make cert` - invocates `openssl` command-line tool to generate self-signed x509 certificate and private key (both needed for `srsh-server`) in interactive mode.
+`make server` - builds server
+`make agent` - builds agent
+`make clean` - removes object files
 
 ## Usage
 
