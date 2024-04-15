@@ -1,0 +1,8 @@
+- Rewrite in OpenBSD KNF, switched to err(3) for error reporting, removed unused vars
+- Update README.md
+- Update README.md
+- Update Makefile
+- Linux support
+- Initial commit
+- Initial commit
+- Initial commit
